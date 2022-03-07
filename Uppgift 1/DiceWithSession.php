@@ -9,19 +9,28 @@
 	</head>
 
 	<body>
-	
+
 		<div>
 			<?php
+
 				//Var uppmärksam på att PHP-tolken används på ett flertal ställen i filen!
+
+				session_start();
+				include 'include/OneDice.php';
+				include 'include/SixDices.php';
+				$disabled = false;
+
+
+
 			?>
 		</div>
-		
-		<a href="<?php ?>?linkRoll=true" class="btn btn-primary<?php ?>">Roll six dices</a>
+
+		<a href="<?php ?>?linkRoll=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Roll six dices</a>
 		<a href="<?php ?>?linkNewGame=true" class="btn btn-primary">New game</a>
-		<a href="<?php ?>?linkExit=true" class="btn btn-primary<?php ?>">Exit</a>
-		
+		<a href="<?php ?>?linkExit=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Exit</a>
+
 		<script src="script/animation.js"></script>
-		
+
 	</body>
 
 </html>
