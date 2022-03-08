@@ -14,11 +14,12 @@
 			<?php
 
 			$disabled = true;
-			if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 			// Uppgift 1
 			if( isset($_POST["btnNewGame"])) {
 				$btnNewGame = $_POST["btnNewGame"];
+				$btnRoll = $_POST["btnRoll"];
+				$btnExit = $_POST["btnExit"];
 
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
@@ -39,12 +40,8 @@
 			&& !isset($_POST["btnNewGame"])
 			&& !isset($_POST["btnExit"])) {
 
-				$btnRoll = $_POST["btnRoll"];
-				$btnExit = $_POST["btnExit"];
-
-				echo ("<h6>" . $_COOKIE["nbrOfRounds"] . "</h6>");
-				echo ("<h6>" . $_COOKIE["sumOfAllRounds"] . "</h6>");
-				echo ("<h6>" . "Medel: ". $medel . "</h6>");
+				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
+				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
 
 			}
 
@@ -69,19 +66,19 @@
 				$sumOfAllRounds += $obSixDices->sumDices();
 				$_COOKIE["sumOfAllRounds"] = $sumOfAllRounds;
 
-				$medel = $sumOfAllRounds / ($nbrOfRounds * 6);
+				$medel = $sumOfAllRounds / $nbrOfRounds;
 
 				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
 				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
 				echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
-				//Uppdaterar värdet på variablerna.
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
 				$disabled = false;
 
 			}
 
+			// Uppgift 4
 			if( !isset($_COOKIE["nbrOfRounds"])
 			&& !isset($_COOKIE["sumOfAllRounds"])) {
 
@@ -99,7 +96,7 @@
 				$disabled = true;
 
 			}
-		}
+
 
 			?>
 		</div>
