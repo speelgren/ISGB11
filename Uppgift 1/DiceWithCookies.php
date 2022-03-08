@@ -18,8 +18,6 @@
 			// Uppgift 1
 			if( isset($_POST["btnNewGame"])) {
 				$btnNewGame = $_POST["btnNewGame"];
-				$btnRoll = $_POST["btnRoll"];
-				$btnExit = $_POST["btnExit"];
 
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
