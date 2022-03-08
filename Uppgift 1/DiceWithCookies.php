@@ -75,6 +75,7 @@
 				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
 				echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
+				//Uppdaterar värdet på variablerna.
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
 				$disabled = false;
