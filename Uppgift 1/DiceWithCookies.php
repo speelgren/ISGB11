@@ -22,6 +22,7 @@
 
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
+				$medel = 0;
 
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
@@ -43,6 +44,7 @@
 
 				echo ("<h6>" . $_COOKIE["nbrOfRounds"] . "</h6>");
 				echo ("<h6>" . $_COOKIE["sumOfAllRounds"] . "</h6>");
+				echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
 			}
 
@@ -50,7 +52,6 @@
 			if( isset($_POST["btnRoll"])
 			&& isset( $_COOKIE["nbrOfRounds"])
 			&& isset($_COOKIE["sumOfAllRounds"])) {
-
 
 				include 'include/OneDice.php';
 				include 'include/SixDices.php';
@@ -68,8 +69,11 @@
 				$sumOfAllRounds += $obSixDices->sumDices();
 				$_COOKIE["sumOfAllRounds"] = $sumOfAllRounds;
 
+				$medel = $sumOfAllRounds / $nbrOfRounds;
+
 				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
 				echo ("<h6>" . "Summan av alla spel: ". $_COOKIE["sumOfAllRounds"] . "</h6>");
+				echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
