@@ -1,10 +1,3 @@
-<?php
-
-	// Startar session
-	session_start();
-
-?>
-
 <!doctype html>
 <html lang="en" >
 
@@ -19,20 +12,21 @@
 
 		<div>
 			<?php
+
+				//Startar session.
+			session_start();
 				//Var uppmärksam på att PHP-tolken används på ett flertal ställen i filen!
 
 				session_regenerate_id(true);
 
-				if($_SERVER["REQUEST_METHOD"] == "POST") {
-
 				$disabled = true;
 
 				//Uppgift 1
-				if( isset($_POST["linkNewGame"])) {
+				if( isset($_GET["linkNewGame"])) {
 					$linkNewGame = $_POST["linkNewGame"];
 
 					$nbrOfRounds = 0;
-					$sumOfAllRounds
+					$sumOfAllRounds = 0;
 					$_SESSION["nbrOfRounds"] = $nbrOfRounds;
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
@@ -41,28 +35,23 @@
 					echo ("<p>" . "New Game!" . "</p>");
 				}
 
-				//Uppgift 2
-				if( isset($_POST["linkExit"])
-				&& isset($_SESSION["nbrOfRounds"])
-				&& isset($_SESSION["sumOfAllRounds"])) {
-					session_unset();
-					session_destroy();
-				}
-
-				//Uppgift 3
-				if( !isset($_POST["linkExit"])
-				&& !isset($_POST["linkRoll"])
-				&& !isset($_POST["linkNewGame"])
+				//Uppgift 2 och 3
+				if( (!isset($_GET["linkExit"])
+				&& !isset($_GET["linkRoll"])
+				&& !isset($_GET["linkNewGame"])
 				&& !isset($_SESSION["nbrOfRounds"])
-				&& !isset($_SESSION["sumOfAllRounds"])) {
+				&& !isset($_SESSION["sumOfAllRounds"]))
+				|| (isset($_GET["linkExit"])
+				&& isset($_SESSION["nbrOfRounds"])
+				&& isset($_SESSION["sumOfAllRounds"]))) {
 					session_unset();
 					session_destroy();
 				}
 
 				//Uppgift 4
-				if( !isset($_POST["linkExit"])
-				&& !isset($_POST["linkRoll"])
-				&& !isset($_POST["linkNewGame"])
+				if( !isset($_GET["linkExit"])
+				&& !isset($_GET["linkRoll"])
+				&& !isset($_GET["linkNewGame"])
 				&& isset($_SESSION["nbrOfRounds"])
 				&& isset($_SESSION["sumOfAllRounds"])) {
 
@@ -73,9 +62,10 @@
 				}
 
 				//Uppgift 5
-				if( isset($_POST["linkRoll"]) && isset($_SESSION["nbrOfRounds"]) && isset($_SESSION["sumOfAllRounds"])) {
+				if( isset($_GET["linkRoll"])
+				&& isset($_SESSION["nbrOfRounds"])
+				&& isset($_SESSION["sumOfAllRounds"])) {
 
-					include 'include/OneDice.php';
 					include 'include/SixDices.php';
 
 					$obSixDices = new SixDices();
@@ -92,6 +82,7 @@
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
 					$medel = $sumOfAllRounds / $nbrOfRounds;
+
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
 					echo ("<h6>" . "Medel: ". $medel . "</h6>");
@@ -99,18 +90,17 @@
 				}
 
 				//Uppgift 6
-				if( !isset($_SESSION["nbrOfRounds"]) && !isset($_SESSION["sumOfAllRounds"])) {
+				if( !isset($_SESSION["nbrOfRounds"])
+				&& !isset($_SESSION["sumOfAllRounds"])) {
 					disabled = true;
 				}
 
-
-}
 			?>
 		</div>
 
-		<a href="<?php ?>?linkRoll=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Roll six dices</a>
-		<a href="<?php ?>?linkNewGame=true" class="btn btn-primary">New game</a>
-		<a href="<?php ?>?linkExit=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Exit</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkRoll=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Roll six dices</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkNewGame=true" class="btn btn-primary">New game</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkExit=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Exit</a>
 
 		<script src="script/animation.js"></script>
 
