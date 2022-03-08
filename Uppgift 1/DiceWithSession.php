@@ -15,6 +15,7 @@
 
 				//Startar session.
 			session_start();
+
 				//Var uppmärksam på att PHP-tolken används på ett flertal ställen i filen!
 
 				session_regenerate_id(true);
@@ -23,7 +24,7 @@
 
 				//Uppgift 1
 				if( isset($_GET["linkNewGame"])) {
-					$linkNewGame = $_POST["linkNewGame"];
+					$linkNewGame = $_GET["linkNewGame"];
 
 					$nbrOfRounds = 0;
 					$sumOfAllRounds = 0;
@@ -82,7 +83,7 @@
 					$sumOfAllRounds += $obSixDices->sumDices();
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
-					$medel = $sumOfAllRounds / ($nbrOfRounds * 6);
+					$medel = $sumOfAllRounds / $nbrOfRounds;
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
@@ -99,9 +100,9 @@
 			?>
 		</div>
 
-		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkRoll=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Roll six dices</a>
-		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkNewGame=true" class="btn btn-primary">New game</a>
-		<a href="<?php echo( $_SERVER["PHP_SELF"]  ?>?linkExit=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Exit</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"] ); ?>?linkRoll=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Roll six dices</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"] ); ?>?linkNewGame=true" class="btn btn-primary">New game</a>
+		<a href="<?php echo( $_SERVER["PHP_SELF"] ); ?>?linkExit=true" class="btn btn-primary<?php if($disabled) { echo("disabled"); ?>">Exit</a>
 
 		<script src="script/animation.js"></script>
 
