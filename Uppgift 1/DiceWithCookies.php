@@ -86,6 +86,17 @@
 
 			}
 
+			// Disable Exit och Roll Dice.
+			if( !isset($_COOKIE["nbrOfRounds"])
+			&& !isset($_COOKIE["sumOfAllRounds"])
+			&& !isset($_POST["btnRoll"])
+			&& !isset($_POST["btnNewGame"])
+			&& !isset($_POST["btnExit"])) {
+
+				$disabled = true;
+
+			}
+
 			if( isset($_POST["btnExit"])
 			&& isset($_COOKIE["nbrOfRounds"])
 			&& isset($_COOKIE["sumOfAllRounds"])) {
