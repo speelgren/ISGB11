@@ -12,12 +12,10 @@
 
 		<div>
 			<?php
-
-				//Startar session.
-			session_start();
-
 				//Var uppmärksam på att PHP-tolken används på ett flertal ställen i filen!
 
+				//Startar session.
+				session_start();
 				session_regenerate_id(true);
 
 				$disabled = true;
@@ -31,9 +29,8 @@
 					$_SESSION["nbrOfRounds"] = $nbrOfRounds;
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
-					$disabled = false;
-
 					echo ("<p>" . "New Game!" . "</p>");
+					$disabled = false;
 				}
 
 				//Uppgift 2 och 3
@@ -45,6 +42,7 @@
 				|| (isset($_GET["linkExit"])
 				&& isset($_SESSION["nbrOfRounds"])
 				&& isset($_SESSION["sumOfAllRounds"]))) {
+
 					session_unset();
 					session_destroy();
 				}
@@ -58,7 +56,6 @@
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: " . $_SESSION["sumOfAllRounds"] . "</h6>");
-
 				}
 
 				//Uppgift 5
@@ -87,12 +84,13 @@
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
 					echo ("<h6>" . "Medel: ". $medel . "</h6>");
-
+					$disabled = false;
 				}
 
 				//Uppgift 6
 				if( !isset($_SESSION["nbrOfRounds"])
 				&& !isset($_SESSION["sumOfAllRounds"])) {
+
 					$disabled = true;
 				}
 
