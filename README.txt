@@ -2,6 +2,6 @@
 
 Systemimplementeringsteknik
 
-PHP
+PHP med XAMPP.
 
 Robin Johansson Speelgren
