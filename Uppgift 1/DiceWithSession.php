@@ -12,8 +12,7 @@
 
 		<div>
 			<?php
-				//Var uppmärksam på att PHP-tolken används på ett flertal ställen i filen!
-
+			
 				//Startar session.
 				session_start();
 				session_regenerate_id(true);
