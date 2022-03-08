@@ -56,7 +56,7 @@
 				&& isset($_SESSION["sumOfAllRounds"])) {
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
-					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
+					echo ("<h6>" . "Summan av alla spel: " . $_SESSION["sumOfAllRounds"] . "</h6>");
 					echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
 				}
@@ -66,6 +66,7 @@
 				&& isset($_SESSION["nbrOfRounds"])
 				&& isset($_SESSION["sumOfAllRounds"])) {
 
+					include 'include/OneDice.php';
 					include 'include/SixDices.php';
 
 					$obSixDices = new SixDices();
@@ -81,7 +82,7 @@
 					$sumOfAllRounds += $obSixDices->sumDices();
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
-					$medel = $sumOfAllRounds / $nbrOfRounds;
+					$medel = $sumOfAllRounds / ($nbrOfRounds * 6);
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
@@ -92,7 +93,7 @@
 				//Uppgift 6
 				if( !isset($_SESSION["nbrOfRounds"])
 				&& !isset($_SESSION["sumOfAllRounds"])) {
-					disabled = true;
+					$disabled = true;
 				}
 
 			?>
