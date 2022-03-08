@@ -69,10 +69,10 @@
 				$sumOfAllRounds += $obSixDices->sumDices();
 				$_COOKIE["sumOfAllRounds"] = $sumOfAllRounds;
 
-				$medel = $sumOfAllRounds / $nbrOfRounds;
+				$medel = $sumOfAllRounds / ($nbrOfRounds * 6);
 
 				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
-				echo ("<h6>" . "Summan av alla spel: ". $_COOKIE["sumOfAllRounds"] . "</h6>");
+				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
 				echo ("<h6>" . "Medel: ". $medel . "</h6>");
 
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
