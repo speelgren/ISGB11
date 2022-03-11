@@ -17,7 +17,6 @@
 
 			// Uppgift 1
 			if( isset($_POST["btnNewGame"])) {
-				$btnNewGame = $_POST["btnNewGame"];
 
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
@@ -29,8 +28,8 @@
 				echo ("<p>" . "New Game!" . "</p>");
 
 				$disabled = false;
-
 			}
+
 			// Uppgift 2
 			if( isset($_COOKIE["nbrOfRounds"])
 			&& isset($_COOKIE["sumOfAllRounds"])
@@ -40,7 +39,6 @@
 
 				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
 				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
-
 			}
 
 			// Uppgift 3
@@ -73,7 +71,6 @@
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
 				$disabled = false;
-
 			}
 
 			// Uppgift 4
@@ -81,7 +78,6 @@
 			&& !isset($_COOKIE["sumOfAllRounds"])) {
 
 				$disabled = false;
-
 			}
 
 			// Disable Exit och Roll Dice.
@@ -92,7 +88,6 @@
 			&& !isset($_POST["btnExit"])) {
 
 				$disabled = true;
-
 			}
 
 			if( isset($_POST["btnExit"])
@@ -103,9 +98,7 @@
 				setcookie("sumOfAllRounds", "", time() - 3600);
 
 				$disabled = true;
-
 			}
-
 
 			?>
 		</div>
