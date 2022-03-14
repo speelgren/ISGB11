@@ -45,6 +45,7 @@
 
 					$nbrOfRounds = 0;
 					$sumOfAllRounds = 0;
+					$medel = 0;
 					$_SESSION["nbrOfRounds"] = $nbrOfRounds;
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
@@ -52,7 +53,7 @@
 					$disabled = false;
 				}
 
-				//Uppgift 2 och 3
+				//Uppgift 3 och 2.
 				if( (!isset($_GET["linkExit"])
 				&& !isset($_GET["linkRoll"])
 				&& !isset($_GET["linkNewGame"])
@@ -74,6 +75,7 @@
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: " . $_SESSION["sumOfAllRounds"] . "</h6>");
+					echo ("<h6>" . "Medelvärdet: ". $medel . "</h6>");
 				}
 
 				//Uppgift 5
@@ -101,7 +103,7 @@
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
-					echo ("<h6>" . "Medel: ". $medel . "</h6>");
+					echo ("<h6>" . "Medelvärdet: ". $medel . "</h6>");
 					$disabled = false;
 				}
 
