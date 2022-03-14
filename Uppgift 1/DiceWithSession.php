@@ -13,6 +13,7 @@
 		<div>
 			<?php
 
+			// Funktion från Peter Bellströms föreläsning 4.
 			function deleteSession() {
 
 				session_unset();
