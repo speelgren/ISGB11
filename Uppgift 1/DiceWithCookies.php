@@ -21,12 +21,10 @@
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
 				$medel = 0;
-
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
 
 				echo ("<p>" . "New Game!" . "</p>");
-
 				$disabled = false;
 			}
 

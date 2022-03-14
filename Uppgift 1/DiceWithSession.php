@@ -42,7 +42,6 @@
 
 				//Uppgift 1
 				if( isset($_GET["linkNewGame"])) {
-					$linkNewGame = $_GET["linkNewGame"];
 
 					$nbrOfRounds = 0;
 					$sumOfAllRounds = 0;
