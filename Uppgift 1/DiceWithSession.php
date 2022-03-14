@@ -20,7 +20,7 @@
 
 				if( ini_get("session.use_cookies")) {
 
-					$sessonCookieData = session_get_cookie_params();
+					$sessionCookieData = session_get_cookie_params();
 					$path = $sessionCookieData["path"];
 					$domain = $sessionCookieData["domain"];
 					$secure = $sessionCookieData["secure"];
