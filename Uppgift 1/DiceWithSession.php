@@ -12,7 +12,27 @@
 
 		<div>
 			<?php
-			
+
+			function deleteSession() {
+
+				session_unset();
+
+				if( ini_get("session.use_cookies")) {
+
+					$sessonCookieData = session_get_cookie_params();
+					$path = $sessionCookieData["path"];
+					$domain = $sessionCookieData["domain"];
+					$secure = $sessionCookieData["secure"];
+					$httponly = $sessionCookieData["httponly"];
+
+					$name = session_name();
+
+					setcookie($name, "", time() - 3600, $path, $domain, $secure, $httponly)
+				}
+
+				session_destroy();
+			}
+
 				//Startar session.
 				session_start();
 				session_regenerate_id(true);
@@ -42,8 +62,7 @@
 				&& isset($_SESSION["nbrOfRounds"])
 				&& isset($_SESSION["sumOfAllRounds"]))) {
 
-					session_unset();
-					session_destroy();
+					deleteSession();
 				}
 
 				//Uppgift 4
