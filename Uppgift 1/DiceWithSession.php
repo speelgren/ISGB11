@@ -12,7 +12,28 @@
 
 		<div>
 			<?php
-			
+
+			// Funktion från Peter Bellströms föreläsning 4.
+			function deleteSession() {
+
+				session_unset();
+
+				if( ini_get("session.use_cookies")) {
+
+					$sessionCookieData = session_get_cookie_params();
+					$path = $sessionCookieData["path"];
+					$domain = $sessionCookieData["domain"];
+					$secure = $sessionCookieData["secure"];
+					$httponly = $sessionCookieData["httponly"];
+
+					$name = session_name();
+
+					setcookie($name, "", time() - 3600, $path, $domain, $secure, $httponly)
+				}
+
+				session_destroy();
+			}
+
 				//Startar session.
 				session_start();
 				session_regenerate_id(true);
@@ -21,10 +42,10 @@
 
 				//Uppgift 1
 				if( isset($_GET["linkNewGame"])) {
-					$linkNewGame = $_GET["linkNewGame"];
 
 					$nbrOfRounds = 0;
 					$sumOfAllRounds = 0;
+					$medel = 0;
 					$_SESSION["nbrOfRounds"] = $nbrOfRounds;
 					$_SESSION["sumOfAllRounds"] = $sumOfAllRounds;
 
@@ -32,7 +53,7 @@
 					$disabled = false;
 				}
 
-				//Uppgift 2 och 3
+				//Uppgift 3 och 2.
 				if( (!isset($_GET["linkExit"])
 				&& !isset($_GET["linkRoll"])
 				&& !isset($_GET["linkNewGame"])
@@ -42,8 +63,7 @@
 				&& isset($_SESSION["nbrOfRounds"])
 				&& isset($_SESSION["sumOfAllRounds"]))) {
 
-					session_unset();
-					session_destroy();
+					deleteSession();
 				}
 
 				//Uppgift 4
@@ -55,6 +75,7 @@
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: " . $_SESSION["sumOfAllRounds"] . "</h6>");
+					echo ("<h6>" . "Medelvärdet: ". $medel . "</h6>");
 				}
 
 				//Uppgift 5
@@ -82,7 +103,7 @@
 
 					echo ("<h6>" . "Antal spel: " . $_SESSION["nbrOfRounds"] . "</h6>");
 					echo ("<h6>" . "Summan av alla spel: ". $_SESSION["sumOfAllRounds"] . "</h6>");
-					echo ("<h6>" . "Medel: ". $medel . "</h6>");
+					echo ("<h6>" . "Medelvärdet: ". $medel . "</h6>");
 					$disabled = false;
 				}
 

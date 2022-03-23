@@ -21,12 +21,10 @@
 				$nbrOfRounds = 0;
 				$sumOfAllRounds = 0;
 				$medel = 0;
-
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
 
 				echo ("<p>" . "New Game!" . "</p>");
-
 				$disabled = false;
 			}
 
@@ -66,7 +64,7 @@
 
 				echo ("<h6>" . "Antal spel: " . $_COOKIE["nbrOfRounds"] . "</h6>");
 				echo ("<h6>" . "Summan av alla spel: " . $_COOKIE["sumOfAllRounds"] . "</h6>");
-				echo ("<h6>" . "Medel: ". $medel . "</h6>");
+				echo ("<h6>" . "Medelvärdet: ". $medel . "</h6>");
 
 				setcookie("nbrOfRounds", $nbrOfRounds, time() + 3600);
 				setcookie("sumOfAllRounds", $sumOfAllRounds, time() + 3600);
