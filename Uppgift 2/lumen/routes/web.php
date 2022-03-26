@@ -1,21 +1,23 @@
 <?php
 
-$router->get('/', function() use ($router) {
+  //statisk endpoint som returnerar versioninfo.
+$router->get('/', function () use ($router) {
 
     return $router->app->version();
 });
 
-$router->get('test', function() use ($router) {
-
-  $test = array("works" => true);
-  return json_encode($test);
+//GET /test/
+$router->get('test', function() {
+  return['works' => true];
 });
 
-$router->group(['namespace'], function() use ($router) {
-
-  $router->get('movies', 'MoviesController@index');
-  $router->get('movies/{id}', 'MoviesController@findMovie');
-  $router->post('movies', 'MoviesController@addMovie');
-  $router->put('movies/{id}', 'MoviesController@changeMovie');
-  $router->delete('movies/{id}', 'MoviesController@deleteMovie');
-});
+//GET /movies/
+$router->get('movies', 'MoviesController@index');
+//GET /movies/id
+$router->get('movies/{id}', 'MoviesController@findMovie');
+//POST /movies/
+$router->post('movies', 'MoviesController@addMovie');
+//PUT /movies/{id}
+$router->put('movies/{id}', 'MoviesController@changeMovie');
+//DELETE
+$router->delete('movies/{id}', 'MoviesController@deleteMovie');

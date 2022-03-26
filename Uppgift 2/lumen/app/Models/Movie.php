@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Models;
-use Illuminate\Database\Eloquent\Model;
+  namespace App\Models;
 
-class Movie extends Model {
+  use Illuminate\Database\Eloquent\Model;
 
-  protected $table = 'movies';
-  protected $fillable = ['id', 'title', 'year', 'genre', 'rating', 'created_at', 'updated_at'];
+  class Movie extends Model {
 
-}
+    protected $table = 'movies';
+    protected $fillable = ['id', 'title', 'year', 'genre', 'rating', 'created_at', 'updated_at'];
+
+  }
