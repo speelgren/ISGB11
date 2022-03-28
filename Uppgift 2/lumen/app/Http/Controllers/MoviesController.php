@@ -1,78 +1,78 @@
 <?php
 
-  namespace App\Http\Controllers;
+	namespace App\Http\Controllers;
 
-  use App\Models\Movie;
-  use Illuminate\Http\Request;
-  use Illuminate\Validation\Rule;
+	use App\Models\Movie;
+	use Illuminate\Http\Request;
+	use Illuminate\Validation\Rule;
 
-  class MoviesController extends Controller {
+	class MoviesController extends Controller {
 
-  private $success = ['success' => true];
+    private $success = ['success' => true];
 
-  public function index() {
+    public function index() {
 
-    $movie = Movie::all()->sortBy('title', SORT_NATURAL|SORT_FLAG_CASE);
-
-    return response()->json($movie);
-  }
-
-  public function findMovie($id) {
-
-    $movie = Movie::find($id);
-
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else {
-
-      return response()->json($movie);
-    }
-  }
-
-  public function addMovie(Request $request) {
-
-    $movie = Movie::create($request->all());
-    $movie->title = $request->input('title');
-    $movie->year = $request->input('year');
-    $movie->genre = $request->input('genre');
-    $movie->rating = $request->input('rating');
-
-    return response()->json($this->success);
-  }
-
-  public function changeMovie(Request $request, $id) {
-
-    $movie = Movie::find($id);
-    $movie->title = $request->input('title');
-    $movie->year = $request->input('year');
-    $movie->genre = $request->input('genre');
-    $movie->rating = $request->input('rating');
-    $movie->save();
-
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else if($movie != null) {
-
-      return response()->json($this->success);
-    } else {
-      //422 UNPROCESSABLE ENTITY
+      // för att sortera titel i bokstavsordning.
+      // https://www.php.net/manual/en/array.constants.php
+      $movie = Movie::all()->sortBy('title', SORT_NATURAL|SORT_FLAG_CASE);
+      return $movie;
     }
 
-  }
+    public function findMovie($id) {
 
-  public function deleteMovie($id) {
-
-    $movie = Movie::find($id);
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else {
-
-      $movie->delete();
-      return response()->json($this->success);
+      // find() returnerar null när $id inte hittas
+      $movie = Movie::findOrFail($id);
+      return $movie;
     }
-  }
+
+		//från pierres föreläsning.
+		public function getByTitle($title) {
+
+			$movie = Movie::where('title', '=', $title)->firstOrFail();
+			return $movie;
+		}
+
+    public function addMovie(Request $request) {
+			//422
+
+			$data = $this->validate($request, [
+				'title' => 'required',
+				'year' => 'integer|alpha',
+				'genre' => 'string|alpha',
+				'rating' => 'integer|alpha'
+			]);
+
+			if(!$data->passes()) {
+				return '422';
+			}
+      $movie = Movie::create($request->all());
+
+    }
+
+    public function changeMovie(Request $request, $id) {
+			//422
+
+      $movie = Movie::findOrFail($id);
+
+			$data = $this->validate($request, [
+				'title' => 'filled',
+				'year' => 'filled|integer',
+				'genre' => 'filled|string',
+				'rating' => 'filled|integer'
+			]);
+
+			$movie->fill($data);
+      $movie->save();
+
+			return $this->success;
+    }
+
+    public function deleteMovie($id) {
+
+      $movie = Movie::findOrFail($id);
+
+			$movie->delete();
+			return $this->success;
+    }
 
 }
