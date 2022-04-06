@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
-  use App\Models\Movie;
-  use Illuminate\Http\Request;
-  use Illuminate\Validation\Rule;
+	use App\Models\Movie;
+	use Illuminate\Http\Request;
+	use Illuminate\Validation\Rule;
 
-  class MoviesController extends Controller {
+	class MoviesController extends Controller {
 
-  private $success = ['success' => true];
+    private $success = ['success' => true];
 
   //GET /movies/
   public function index() {
