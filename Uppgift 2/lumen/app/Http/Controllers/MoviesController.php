@@ -1,6 +1,4 @@
-<?php
-
-  namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers;
 
   use App\Models\Movie;
   use Illuminate\Http\Request;
@@ -10,69 +8,62 @@
 
   private $success = ['success' => true];
 
+  //GET /movies/
   public function index() {
 
     $movie = Movie::all()->sortBy('title', SORT_NATURAL|SORT_FLAG_CASE);
-
-    return response()->json($movie);
+    return $movie;
   }
 
+  //GET /movies/{id}/
   public function findMovie($id) {
 
-    $movie = Movie::find($id);
-
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else {
-
-      return response()->json($movie);
-    }
+    $movie = Movie::findOrFail($id);
+    return $movie;
   }
 
+  //GET /movies/{title}/
+  public function findByTitle($title) {
+
+    $movie = Movie::where('title', '=', $title)->firstOrFail();
+    return $movie;
+  }
+
+  //POST /movies/
   public function addMovie(Request $request) {
 
-    $movie = Movie::create($request->all());
-    $movie->title = $request->input('title');
-    $movie->year = $request->input('year');
-    $movie->genre = $request->input('genre');
-    $movie->rating = $request->input('rating');
+    $data = $this->validate($request, [
+      'title' => 'required',
+      'year' => 'integer',
+      'genre' => 'string|alpha',
+      'rating' => 'integer'
+    ]);
 
-    return response()->json($this->success);
+    $movie = Movie::create($request->all());
+    return $this->success;
   }
 
+  //PUT /movies/{id}/
   public function changeMovie(Request $request, $id) {
 
-    $movie = Movie::find($id);
-    $movie->title = $request->input('title');
-    $movie->year = $request->input('year');
-    $movie->genre = $request->input('genre');
-    $movie->rating = $request->input('rating');
+    $movie = Movie::findOrFail($id);
+    $data = $this->validate($request, [
+      'title' => 'string',
+      'year' => 'integer',
+      'genre' => 'string|alpha',
+      'rating' => 'integer'
+    ]);
+
+    $movie->fill($data);
     $movie->save();
-
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else if($movie != null) {
-
-      return response()->json($this->success);
-    } else {
-      //422 UNPROCESSABLE ENTITY
-    }
-
+    return $this->success;
   }
 
+  //DELETE /movies/{id}/
   public function deleteMovie($id) {
 
-    $movie = Movie::find($id);
-    if($movie == null) {
-
-      return '404 Not Found.';
-    } else {
-
-      $movie->delete();
-      return response()->json($this->success);
-    }
+    $movie = Movie::findOrFail($id);
+    $movie->delete();
+    return $this->success;
   }
-
 }
